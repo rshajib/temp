@@ -1,28 +1,23 @@
-import { Component } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AdminService } from './admin.service';
+<button class="login-button" (click)="open(content)">Login as Admin</button>
 
-@Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
-})
-export class LoginComponent {
-  constructor(private modalService: NgbModal, private adminService: AdminService) {}
-
-  open(content) {
-    this.modalService.open(content);
-  }
-
-  onSubmit(form) {
-    const username = form.username.value;
-    const password = form.password.value;
-    this.adminService.login(username, password).subscribe(
-      () => {
-        console.log('Login successful');
-      },
-      () => {
-        console.log('Login failed');
-      }
-    );
-  }
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Admin Login</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" class="form-control" id="username">
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</ng-template>
